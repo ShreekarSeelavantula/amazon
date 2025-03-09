@@ -48,7 +48,10 @@ for(let i=0 ; i<=products.length-1;i++)
             Added
           </div>
 
-          <button class="add-to-cart-button button-primary">
+          <button class="add-to-cart-button button-primary add_button_class"
+
+          data-add_button_id = "${products[i].id}"  
+          >
             Add to Cart
           </button>
         </div>
@@ -58,6 +61,61 @@ for(let i=0 ; i<=products.length-1;i++)
 
 }
 
+
 document.querySelector('.products-grid').innerHTML=string;
+let add_button = document.querySelectorAll('.add_button_class');// here add_button is a node which acts as like an araay where it stores the information of the buttons having the same class name "add_button_class"
+
+for(let i =0 ; i<=(add_button.length-1) ; i++)// here add_button is a node which acts as like an araay where it stores the information of the buttons having the same class name "add_button_class"
+{
+  add_button[i].addEventListener("click", show_items);
+}
+
+function show_items(event)
+{
+  let button = event.target;
+  let matched_item_index = undefined;
+
+
+  for(let i = 0 ; i<=(cart.length-1); i++)
+  {
+    if(String(cart[i].id) === button.dataset.add_button_id)//here we are checking if the name of the product that we clicked(we can get this name using the declration of the data attribute in the button that we clicked ) is already there in the cart array (this cart array exeists in the cart.js file) or not . if yes we are assigning this name to the variable "matched_item"
+    {
+      
+         matched_item_index = i;
+          break;
+        
+    }//end of if statement which checks whether it exists the common product name 
+
+  }//end of for loop of button node list
+
+    if(matched_item_index !== undefined)//why i did not wrote matched_item_index === true is there can be index =0 which will make the condition false for this if statement
+    {
+
+      cart[matched_item_index].quantity+=1;
+    }
+    
+    else{
+
+    cart.push(
+      {
+        id : button.dataset.add_button_id,
+        quantity : 1
+        
+      }
+             ); //end of push
+
+
+    
+  }//end of else
+
+  
+
+
+
+console.log(cart);
+
+}//end of show_items event listener
+
+
 
 
