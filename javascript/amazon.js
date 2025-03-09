@@ -27,7 +27,7 @@ for(let i=0 ; i<=products.length-1;i++)
           </div>
 
           <div class="product-quantity-container">
-            <select>
+            <select class = "selector_dropdown">
               <option selected value="1">1</option>
               <option value="2">2</option>
               <option value="3">3</option>
@@ -73,7 +73,28 @@ for(let i =0 ; i<=(add_button.length-1) ; i++)// here add_button is a node which
 function show_items(event)
 {
   let button = event.target;
-  let matched_item_index = undefined;
+  let matched_item_index = undefined , total_quantity = 0;
+
+
+  let selector_node_list = document.querySelectorAll('.selector_dropdown');
+let button_list = document.querySelectorAll('.add_button_class');
+
+for (let j = 0; j < button_list.length; j++) {
+  if (button_list[j] === button) {
+    selectedQuantity = parseInt(selector_node_list[j].value);
+    break;
+  }
+}
+//Another logic for selected_quantity
+  // // 🔹 Find the parent product container of the clicked button
+  // let parentContainer = button.closest('.product-container');
+
+
+  // // 🔹 Find the select dropdown inside the same container
+  // let selectElement = parentContainer.querySelector('.selector_dropdown');
+
+  // // 🔹 Get the selected quantity value
+  // let selectedQuantity = parseInt(selectElement.value);
 
 
   for(let i = 0 ; i<=(cart.length-1); i++)
@@ -91,7 +112,7 @@ function show_items(event)
     if(matched_item_index !== undefined)//why i did not wrote matched_item_index === true is there can be index =0 which will make the condition false for this if statement
     {
 
-      cart[matched_item_index].quantity+=1;
+      cart[matched_item_index].quantity+=selectedQuantity;
     }
     
     else{
@@ -99,7 +120,7 @@ function show_items(event)
     cart.push(
       {
         id : button.dataset.add_button_id,
-        quantity : 1
+        quantity : selectedQuantity
         
       }
              ); //end of push
@@ -108,11 +129,17 @@ function show_items(event)
     
   }//end of else
 
-  
+  //calculating the total quantity of products added to cart using the cart array present in the cart.js file
+
+  for(let i=0 ; i<=(cart.length-1);i++)
+    {
+       total_quantity += parseInt(cart[i].quantity);
+    }
 
 
-
+document.querySelector('.cart-quantity').innerHTML = total_quantity;
 console.log(cart);
+console.log(total_quantity);
 
 }//end of show_items event listener
 
