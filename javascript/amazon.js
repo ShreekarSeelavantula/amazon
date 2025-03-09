@@ -70,6 +70,10 @@ for(let i =0 ; i<=(add_button.length-1) ; i++)// here add_button is a node which
   add_button[i].addEventListener("click", show_items);
 }
 
+
+let addedToCartMessages = document.querySelectorAll('.added-to-cart'); // Store checkmark elements
+
+
 function show_items(event)
 {
   let button = event.target;
@@ -82,6 +86,22 @@ let button_list = document.querySelectorAll('.add_button_class');
 for (let j = 0; j < button_list.length; j++) {
   if (button_list[j] === button) {
     selectedQuantity = parseInt(selector_node_list[j].value);
+
+
+     // Show "Added to Cart" message
+     addedToCartMessages[j].style.opacity = '1';
+     addedToCartMessages[j].style.transition = '0.5s ease';
+
+
+
+     // Hide it after 1.5 seconds
+     setTimeout(() => {
+       addedToCartMessages[j].style.opacity = '0';
+       addedToCartMessages[j].style.transition = '0.15';
+
+     }, 2000);
+
+
     break;
   }
 }
