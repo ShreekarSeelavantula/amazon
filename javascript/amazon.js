@@ -1,3 +1,9 @@
+import {cart} from "../data/cart.js";
+import {products} from "../data/products.js";//here if i right like import * as products from "path"    :-    then products will become the object , but not an array . so to import everything as the way it is , it is better to use {products}
+
+
+
+
 
 let string ="";
 for(let i=0 ; i<=products.length-1;i++)
@@ -64,6 +70,9 @@ for(let i=0 ; i<=products.length-1;i++)
 
 document.querySelector('.products-grid').innerHTML=string;
 let add_button = document.querySelectorAll('.add_button_class');// here add_button is a node which acts as like an araay where it stores the information of the buttons having the same class name "add_button_class"
+let selectedQuantity = 1;
+
+
 
 for(let i =0 ; i<=(add_button.length-1) ; i++)// here add_button is a node which acts as like an araay where it stores the information of the buttons having the same class name "add_button_class"
 {
